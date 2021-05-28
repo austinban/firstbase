@@ -1,0 +1,87 @@
+@import "../../../App";
+
+.personWrapper {
+  transition: all 0.3s;
+  position: relative;
+  border-radius: 12px;
+  &.active {
+    padding: 8px 24px 16px 24px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    margin: 16px 0;
+  }
+}
+
+.personName {
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 8px 0;
+
+  .idString {
+    margin-left: 8px;
+    display: none;
+    color: $material-54;
+  }
+  &.active {
+    font-size: 20px;
+    margin-bottom: 12px;
+    pointer-events: none;
+    .idString {
+      display: inline-block;
+    }
+  }
+  &:hover {
+    color: $primary;
+    transform: translateX(10px);
+  }
+}
+
+.personContentWrapper {
+  max-height: 0px;
+  transition: all 0.2s;
+  overflow: hidden;
+  transform-origin: top;
+  opacity: 0;
+  &.active {
+    max-height: 400px;
+    opacity: 1;
+  }
+}
+
+.personTitle {
+  color: $material-54;
+  display: inline-block;
+}
+
+.inputs {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-column-gap: 24px;
+  margin-bottom: 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+}
+
+.closeIcon {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 24px;
+  top: 16px;
+  opacity: 0;
+  transition: 0.2s;
+  cursor: pointer;
+  filter: brightness(0);
+  &:hover {
+    transform: scale(1.1);
+    filter: brightness(1);
+  }
+  &.active {
+    opacity: 1;
+  }
+}

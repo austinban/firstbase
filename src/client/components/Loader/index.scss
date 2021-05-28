@@ -1,0 +1,85 @@
+@import "../../../App";
+
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fade-in 0.5s;
+}
+
+$ball-size: 40px; // Change size here
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+
+.ball {
+  display: inline-block;
+  width: $ball-size;
+  height: $ball-size;
+  border-radius: 50%;
+  z-index: 100;
+  mix-blend-mode: hard-light; // change blend mode here
+  // Animation Section
+  bottom: 0;
+  @include animation("pass 2s 1");
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.8, 0, 0.2, 1);
+  &:after {
+    // This is the shadow
+    content: "";
+    display: block;
+    background-color: $material-12;
+    width: $ball-size;
+    height: $ball-size / 10;
+    position: relative;
+    border-radius: 50%;
+    z-index: -100;
+    margin-top: $ball-size / 6 + $ball-size;
+    box-shadow: 0 0 20px 10px $material-12;
+  }
+  &:nth-child(odd) {
+    background-color: $primary;
+  }
+  &:nth-child(even) {
+    background-color: $grey;
+  }
+}
+
+$first: $ball-size / 6;
+$second: -$ball-size - $ball-size / 6;
+$third: $ball-size / 6;
+
+@include keyframes(pass) {
+  0% {
+    margin: 0 $first;
+  }
+  50% {
+    margin: 0px $second;
+  }
+  100% {
+    margin: 0 $third;
+  }
+}

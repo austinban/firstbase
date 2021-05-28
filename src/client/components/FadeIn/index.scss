@@ -1,0 +1,20 @@
+.fadeInContainer {
+  animation: drop-in 1.3s ease;
+  animation-duration: 2.2s;
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      animation-duration: #{$i * 0.1 + 0.2}s;
+    }
+  }
+}
+
+@keyframes drop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

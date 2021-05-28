@@ -1,0 +1,32 @@
+@import "../../../App";
+
+.button {
+  display: block;
+  padding: 10px 25px;
+  border-radius: 999px;
+  background-color: $primary;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-right: 8px;
+  &:hover {
+    background: lighten($primary, 0.1);
+    transform: translateX(2px) translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  &:active {
+    transition: all 0.1s;
+    transform: translateX(0px) translateY(1px);
+  }
+  &.disabled {
+    pointer-events: none;
+    background-color: $material-24 !important;
+  }
+  &.grey {
+    background-color: $grey;
+  }
+}
