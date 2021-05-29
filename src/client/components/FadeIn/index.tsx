@@ -7,7 +7,11 @@ export type OwnProps = {
 };
 
 const FadeIn: FC<OwnProps> = ({ children }: OwnProps) => {
-  return <div className="fadeInContainer">{children}</div>;
+  return (
+    <div role="fade" className="fadeInContainer">
+      {children}
+    </div>
+  );
 };
 
 export default FadeIn;

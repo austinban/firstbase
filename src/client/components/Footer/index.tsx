@@ -6,7 +6,7 @@ export type OwnProps = {};
 
 const Footer: FC<OwnProps> = ({}: OwnProps) => {
   return (
-    <div className="footerContainer">
+    <div role="footer" className="footerContainer">
       <div className="footer">
         <a className="footerHeader">Austin's Links</a>
 

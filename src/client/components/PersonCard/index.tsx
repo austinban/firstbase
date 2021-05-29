@@ -1,5 +1,5 @@
 import React, { useState, FC, useRef, useEffect } from "react";
-import { Person } from "../../../lib/types";
+import { Person, SubmitModifyParams } from "../../../lib/types";
 import Input from "../Input";
 import FadeIn from "../FadeIn";
 import Button from "../Button";
@@ -9,16 +9,9 @@ var classNames = require("classnames");
 
 export type OwnProps = {
   person: Person;
-  mutatedPerson?: Person;
   toggleActiveId: (id: number | null) => void;
   active?: boolean;
-  submitModify: (
-    id: number,
-    first: string,
-    last: string,
-    title: string,
-    email: string
-  ) => void;
+  submitModify: (params: SubmitModifyParams) => void;
 };
 
 const PersonCard: FC<OwnProps> = ({
@@ -100,6 +93,7 @@ const PersonCard: FC<OwnProps> = ({
       >
         {renderClose()}
         <div
+          role="name"
           className={classNames("personName", { active })}
           onClick={() => toggleActiveId(person.id)}
         >
@@ -108,20 +102,23 @@ const PersonCard: FC<OwnProps> = ({
           <div className={classNames("idString")}>- ID: {person.id}</div>
         </div>
         <div className={classNames("personContentWrapper", { active })}>
-          <div className={classNames("inputs")}>
+          <div role="inputs" className={classNames("inputs")}>
             <Input
+              role="titleInput"
               label={"Title"}
               onChange={setTitle}
               value={title}
               placeholder="Title"
             />
             <Input
+              role="firstNameInput"
               label={"First Name"}
               onChange={setFirst}
               value={first}
               placeholder="First Name"
             />
             <Input
+              role="lastNameInput"
               label={"Last Name"}
               onChange={setLast}
               value={last}
@@ -130,12 +127,20 @@ const PersonCard: FC<OwnProps> = ({
           </div>
 
           <div className={classNames("buttonWrapper")}>
-            <Button grey disabled={isDisabled()} onClick={undoChanges}>
+            <Button
+              role="undo"
+              grey
+              disabled={isDisabled()}
+              onClick={undoChanges}
+            >
               Undo
             </Button>
             <Button
+              role="submit"
               disabled={isDisabled()}
-              onClick={() => submitModify(person.id, first, last, title, email)}
+              onClick={() =>
+                submitModify({ id: person.id, first, last, title, email })
+              }
             >
               Submit
             </Button>

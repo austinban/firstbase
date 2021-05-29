@@ -7,24 +7,31 @@ export type OwnProps = {
   onChange: (val: string) => void;
   placeholder: string;
   label?: string;
+  role?: string;
 };
 
 const Input: FC<OwnProps> = ({
   value,
   onChange,
   placeholder,
-  label
+  label,
+  role
 }: OwnProps) => {
   const renderLabel = () => {
     if (!label) return null;
 
-    return <label className="label">{label}</label>;
+    return (
+      <label role="label" className="label">
+        {label}
+      </label>
+    );
   };
 
   return (
     <div className="inputContainer">
       {renderLabel()}
       <input
+        role={role}
         className="input"
         onChange={e => onChange(e.target.value)}
         value={value}

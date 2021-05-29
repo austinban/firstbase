@@ -1,0 +1,27 @@
+@import "../../../App";
+
+.headerWrapper {
+  background: $grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .header {
+    max-width: 1080px;
+    width: 1080px;
+    margin: 24px;
+
+    .headerText {
+      color: #fff;
+      font-weight: 700;
+      font-size: 48px;
+      @media (max-width: 600px) {
+        font-size: 28px;
+      }
+    }
+    .headerSubtext {
+      color: #fff;
+      font-weight: 400;
+      font-size: 20px;
+    }
+  }
+}

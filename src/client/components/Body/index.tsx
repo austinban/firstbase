@@ -12,7 +12,10 @@ export type OwnProps = {
 
 const Body: FC<OwnProps> = ({ children, primary, inset, noFlex }: OwnProps) => {
   return (
-    <div className={classNames("bodyContainer", { primary, inset, noFlex })}>
+    <div
+      role="body"
+      className={classNames("bodyContainer", { primary, inset, noFlex })}
+    >
       <div className={classNames("body")}>{children}</div>
     </div>
   );

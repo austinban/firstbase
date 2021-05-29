@@ -7,7 +7,11 @@ export type OwnProps = {
 };
 
 const Wrapper: FC<OwnProps> = ({ children }: OwnProps) => {
-  return <div className="wrapper">{children}</div>;
+  return (
+    <div role="wrapper" className="wrapper">
+      {children}
+    </div>
+  );
 };
 
 export default Wrapper;

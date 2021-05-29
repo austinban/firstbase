@@ -22,6 +22,14 @@ export interface EditPersonParams {
   };
 }
 
+export interface SubmitModifyParams {
+  id: number;
+  title: string;
+  first: string;
+  last: string;
+  email: string;
+}
+
 export interface ModifyParams {
   variables: {
     id: number;

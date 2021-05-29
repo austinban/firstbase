@@ -7,7 +7,7 @@ import {
   ApolloProvider
 } from "@apollo/client";
 import { cache } from "./cache";
-import People from "./client/pages/people";
+import People from "./client/pages/People";
 import "./App.scss";
 
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({

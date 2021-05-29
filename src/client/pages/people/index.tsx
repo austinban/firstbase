@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Person } from "../../../lib/types";
-import { getFullName } from "../../../lib/person";
 import Fuse from "fuse.js";
 import "./index.scss";
+import { Person } from "../../../lib/types";
+import { getFullName } from "../../../lib/person";
 import Input from "../../components/Input";
-import PersonCard from "../../components/PersonCard";
 import Body from "../../components/Body";
 import Footer from "../../components/Footer";
 import Wrapper from "../../components/Wrapper";
+import PeopleList from "../../components/PeopleList";
 import Loader from "../../components/Loader";
+import Header from "../../components/Header";
 import { LazyLoadPeople } from "../../../server/actions/lazyLoadPeople";
 import { ModifyPerson } from "../../../server/actions/modifyPerson";
 
@@ -16,8 +17,8 @@ function People() {
   const [activeId, setActiveId] = useState<number | null>(null);
   const [query, setQuery] = useState("");
 
-  const { loadPeople, called, loading, data } = LazyLoadPeople();
-  const { modify, data: mutationData, mutationError } = ModifyPerson();
+  const { loadPeople, loading, data } = LazyLoadPeople();
+  const { SubmitModify } = ModifyPerson();
 
   // Effects
   useEffect(() => {
@@ -25,18 +26,6 @@ function People() {
   }, [data]);
 
   // Functions
-  const SubmitModify = (
-    id: number,
-    first: string,
-    last: string,
-    title: string,
-    email: string
-  ) => {
-    modify({
-      variables: { id: id, payload: { title, first, last, email } }
-    });
-  };
-
   const toggleActiveId = (id: number | null) => {
     activeId == id ? setActiveId(null) : setActiveId(id);
   };
@@ -67,46 +56,25 @@ function People() {
   };
 
   // Render
-  const renderPeople = () => {
-    if (getPeople().length == 0) {
-      return (
-        <div className="errorWrapper">
-          <div className="errorText"> No results for this search.</div>
-          <div className="errorLink" onClick={() => setQuery("")}>
-            Clear search
-          </div>
-        </div>
-      );
-    }
-
-    return getPeople().map((person: Person) => {
-      return (
-        <PersonCard
-          key={`${person.id}-${query}`}
-          person={person}
-          mutatedPerson={mutationData}
-          active={activeId == person.id}
-          toggleActiveId={toggleActiveId}
-          submitModify={SubmitModify}
-        />
-      );
-    });
-  };
 
   const renderContent = () => {
     if (loading || !data) return <Loader />;
 
-    return <div>{renderPeople()}</div>;
+    return (
+      <PeopleList
+        people={getPeople()}
+        query={query}
+        setQuery={setQuery}
+        activeId={activeId}
+        toggleActiveId={toggleActiveId}
+        submitModify={SubmitModify}
+      />
+    );
   };
 
   return (
     <Wrapper>
-      <div className="headerWrapper">
-        <div className="header">
-          <div className="headerText">Firstbase Frontend Coding Challenge</div>
-          <div className="headerSubtext">Completed by Austin Ban</div>
-        </div>
-      </div>
+      <Header />
       <Body noFlex primary inset>
         <Input onChange={setQuery} value={query} placeholder="Search by name" />
       </Body>
